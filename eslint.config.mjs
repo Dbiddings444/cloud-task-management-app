@@ -30,7 +30,7 @@ export default defineConfig([
 
       // Your custom rules
       'vue/multi-word-component-names': 'off',
-      'prettier/prettier': off,
+      'prettier/prettier': 'off',
     },
   },
 ])

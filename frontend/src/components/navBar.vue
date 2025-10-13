@@ -3,18 +3,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
-          <a href="#" class="flex items-center space-x-3">
+          <a href="/frontend/src/views/DashboardView.vue" class="flex items-center space-x-3">
             <img src="/vite.svg" alt="logo" class="h-8 w-8" />
             <span class="font-semibold text-lg">TaskCloud</span>
           </a>
         </div>
 
         <div class="hidden md:flex md:items-center md:space-x-6">
-          <a href="#" class="text-gray-700 hover:text-gray-900">Home</a>
           <a href="#" class="text-gray-700 hover:text-gray-900">Projects</a>
           <a href="#" class="text-gray-700 hover:text-gray-900">About</a>
-          <button class="ml-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
-            Sign in
+          <button 
+		  	class="ml-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+			>
+            Create Task
           </button>
         </div>
 

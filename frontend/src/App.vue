@@ -1,20 +1,20 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import NavBar from './components/navBar.vue'
-</script>
-
 <template>
-  <NavBar />
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <NavBar class="fixed top-0 w-full" v-if="showNav" />
+
+  <!-- Offset content so fixed navbar doesn't overlap -->
+  <div class="pt-16">
+    <router-view />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
+
+<script setup>
+import NavBar from './components/navBar.vue'   // optional
+import { computed } from 'vue';
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const showNav = computed(() => !route.meta?.hideNav)
+</script>
 
 <style scoped>
 .logo {
