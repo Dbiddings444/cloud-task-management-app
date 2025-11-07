@@ -12,11 +12,13 @@
         <div class="hidden md:flex md:items-center md:space-x-6">
           <a href="#" class="text-gray-700 hover:text-gray-900">Projects</a>
           <a href="#" class="text-gray-700 hover:text-gray-900">About</a>
-          <button 
-		  	class="ml-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-			>
+          <router-link
+		  	v-if="!hideCreateTaskButton"
+            :to="{ name: 'taskForm' }"
+            class="ml-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 inline-flex items-center"
+          >
             Create Task
-          </button>
+          </router-link>
         </div>
 
         <div class="flex items-center md:hidden">
@@ -82,14 +84,23 @@
           class="block px-3 py-2 rounded-md text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
           >Sign in</a
         >
+        <router-link
+          :to="{ name: 'taskForm' }"
+          class="block mt-2 px-3 py-2 rounded-md text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+        >
+          Create Task
+        </router-link>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
+const hideCreateTaskButton = computed(() => route.meta?.hideCreateTaskButton)
 const open = ref(false)
 </script>
 
