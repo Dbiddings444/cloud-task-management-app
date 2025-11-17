@@ -3,10 +3,13 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
-          <a href="/frontend/src/views/DashboardView.vue" class="flex items-center space-x-3">
+        <router-link
+		class="flex items-center space-x-3"
+          :to="{ name: 'dashboard' }"
+        >
             <img src="/vite.svg" alt="logo" class="h-8 w-8" />
             <span class="font-semibold text-lg">TaskCloud</span>
-          </a>
+        </router-link>
         </div>
 
         <div class="hidden md:flex md:items-center md:space-x-6">
@@ -85,6 +88,7 @@
           >Sign in</a
         >
         <router-link
+          v-if="!hideCreateTaskButton"
           :to="{ name: 'taskForm' }"
           class="block mt-2 px-3 py-2 rounded-md text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
         >

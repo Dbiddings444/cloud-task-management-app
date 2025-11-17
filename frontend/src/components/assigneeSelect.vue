@@ -31,7 +31,6 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import PrimaryButton from '@/components/PrimaryButton.vue'
 const props = defineProps({
   modelValue: [String, Number],
   label: { type: String, default: 'Assignee' }
