@@ -1,8 +1,10 @@
 <template>
-<TaskOverlay 
-    v-if="isOpen" 
+<div v-if="isOpen">
+<TaskOverlay
     @close="isOpen = false"
+    :task="selectedTask"
  />
+ </div>
     <div class="px-6 py-4">
         <h1 class="text-black text-2xl font-semibold">Dashboard</h1>
         <p class="mt-2 text-gray-700">Welcome to the dashboard view!</p>
@@ -15,7 +17,7 @@
                                 v-for="task in tasksByStatus(col.key)"
                                 :key="task.id"
                                 :task="task"
-                                @click=openOverlay(task)
+                                @click=openTaskOverlay(task)
                             />
                             <p v-if="tasksByStatus(col.key).length === 0" class="text-xs text-gray-400">No tasks</p>
                         </div>
@@ -34,8 +36,10 @@ function tasksByStatus(status) {
     return sampleTasks.filter(t => (t.status || '').toLowerCase() === status)
 }
  const isOpen = ref(false);
- function openOverlay(task) {
+ const selectedTask = ref(null);
+ function openTaskOverlay(task) {
     isOpen.value = true;
-
+    selectedTask.value = task;
+    console.log('###', task)
  }
 </script>

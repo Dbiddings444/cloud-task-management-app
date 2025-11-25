@@ -1,8 +1,8 @@
 <template>
-	<div v-if="visible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
 		<div class="bg-white rounded-lg max-w-2xl w-full p-6">
 			<div class="flex justify-between items-center">
-				<h3 class="text-lg font-semibold">Edit Task</h3>
+				<h3 class="text-lg font-semibold">{{task.title}}</h3>
 				<button @click="onClose" aria-label="Close">✕</button>
 			</div>
 
@@ -43,7 +43,6 @@ import PrioritySelector from '@/components/PrioritySelector.vue'
 
 const props = defineProps({
 	task: { type: Object, default: null },
-	visible: { type: Boolean, default: false }
 })
 const emit = defineEmits(['save', 'close'])
 
