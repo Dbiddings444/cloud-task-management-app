@@ -8,8 +8,8 @@
 </template>
 
 <script setup>
-import NavBar from './components/navBar.vue'   // optional
-import { computed } from 'vue';
+import NavBar from './components/NavBar.vue' // optional
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

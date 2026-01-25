@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { ref, watch, } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   modelValue: [String, Number],
@@ -25,7 +25,10 @@ const props = defineProps({
 
 const internalValue = ref(props.modelValue)
 
-watch(() => props.modelValue, v => (internalValue.value = v))
+watch(
+  () => props.modelValue,
+  (v) => (internalValue.value = v)
+)
 </script>
 
 <style scoped>

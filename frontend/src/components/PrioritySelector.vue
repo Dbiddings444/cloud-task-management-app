@@ -1,24 +1,14 @@
 <template>
   <div class="flex flex-col gap-1">
-    <label class="text-sm font-medium text-gray-700">{{ label }}</label>
     <select
       v-model="model"
       class="rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
     >
       <option disabled value="">Select priority</option>
-      <option
-        v-for="opt in options"
-        :key="opt.value"
-        :value="opt.value"
-      >
+      <option v-for="opt in options" :key="opt.value" :value="opt.value">
         {{ opt.label }}
       </option>
     </select>
-
-    <!-- Optional: show selected badge -->
-    <div v-if="selectedOption" class="mt-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold" :class="selectedOption.color">
-      {{ selectedOption.label }}
-    </div>
   </div>
 </template>
 
@@ -44,5 +34,5 @@ const options = [
   { value: 'critical', label: 'Critical', color: 'bg-purple-100 text-purple-800' },
 ]
 
-const selectedOption = computed(() => options.find(o => o.value === props.modelValue))
+const selectedOption = computed(() => options.find((o) => o.value === props.modelValue))
 </script>

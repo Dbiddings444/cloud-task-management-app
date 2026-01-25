@@ -3,20 +3,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
-        <router-link
-		class="flex items-center space-x-3"
-          :to="{ name: 'dashboard' }"
-        >
+          <router-link class="flex items-center space-x-3" :to="{ name: 'dashboard' }">
             <img src="/vite.svg" alt="logo" class="h-8 w-8" />
             <span class="font-semibold text-lg">TaskCloud</span>
-        </router-link>
+          </router-link>
         </div>
 
         <div class="hidden md:flex md:items-center md:space-x-6">
           <a href="#" class="text-gray-700 hover:text-gray-900">Projects</a>
           <a href="#" class="text-gray-700 hover:text-gray-900">About</a>
           <router-link
-		  	v-if="!hideCreateTaskButton"
+            v-if="!hideCreateTaskButton"
             :to="{ name: 'taskForm' }"
             class="ml-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 inline-flex items-center"
           >

@@ -1,27 +1,21 @@
 <template>
   <div class="flex flex-col gap-1">
-    <label class="text-sm font-medium text-gray-700">{{ label }}</label>
-    
     <select
       v-model="model"
       class="rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
     >
       <option disabled value="">Select assignee</option>
-      <option 
-        v-for="person in assignees" 
-        :key="person.id" 
-        :value="person.id"
-      >
+      <option v-for="person in assignees" :key="person.id" :value="person.id">
         {{ person.name }}
       </option>
     </select>
 
     <!-- Optional: show selected user -->
-    <div v-if="selectedAssignee" class="mt-2 flex items-center gap-2"> 
-      <img 
-        v-if="selectedAssignee.avatar" 
-        :src="selectedAssignee.avatar" 
-        class="h-6 w-6 rounded-full object-cover" 
+    <div v-if="selectedAssignee" class="mt-2 flex items-center gap-2">
+      <img
+        v-if="selectedAssignee.avatar"
+        :src="selectedAssignee.avatar"
+        class="h-6 w-6 rounded-full object-cover"
         alt="avatar"
       />
       <span class="text-sm text-gray-700 font-medium">{{ selectedAssignee.name }}</span>
@@ -33,7 +27,6 @@
 import { computed, ref } from 'vue'
 const props = defineProps({
   modelValue: [String, Number],
-  label: { type: String, default: 'Assignee' }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -49,11 +42,8 @@ const assignees = ref([
 // this makes v-model work properly with parent
 const model = computed({
   get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
+  set: (val) => emit('update:modelValue', val),
 })
-
 // computed to find which person is currently selected
-const selectedAssignee = computed(() => 
-  assignees.value.find(a => a.id === props.modelValue)
-)
+const selectedAssignee = computed(() => assignees.value.find((a) => a.id === props.modelValue))
 </script>
