@@ -94,12 +94,31 @@ function validate() {
 async function onSubmit() {
   if (!validate()) return
   submitting.value = true
-  // Mock async registration
-  await new Promise((r) => setTimeout(r, 700))
-  submitting.value = false
-  // On success navigate to dashboard
-  router.push({ name: 'dashboard' })
+  
+  const options =  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),
+    }
+
+    // Call backend signup route
+    await fetch('/api/signup', options)
+    .then(res => res.json())
+    .then(data =>{
+      if (data.error) {
+        errors.email = data.error
+      } else {
+        alert('your account has been successfully created')
+        console.log(options.body)
+        router.push({ name: 'login' })
+      }
+    })
+    .catch(err => { console.log(err) })
+    .finally(() => {
+      submitting.value = false
+    })
 }
+
 </script>
 
 <style scoped></style>

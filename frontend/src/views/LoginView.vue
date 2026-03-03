@@ -70,11 +70,31 @@ function validate() {
 async function onSubmit() {
   if (!validate()) return
   submitting.value = true
-  // Mock async auth
-  await new Promise((r) => setTimeout(r, 600))
-  submitting.value = false
-  // On success navigate to dashboard
-  router.push({ name: 'dashboard' })
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: form.email, password: form.password }),
+    })
+
+    const body = await res.json().catch(() => ({}))
+    if (res.ok) {
+      // If server returns a token, store it for authenticated requests
+      if (body.token) {
+        localStorage.setItem('auth_token', body.token)
+      }
+      console.log('Login successful')
+      router.push({ name: 'dashboard' })
+    } else {
+      const msg = body.message || 'Login failed'
+      errors.email = msg
+    }
+  } catch (err) {
+    console.error(err)
+    errors.email = 'Network error'
+  } finally {
+    submitting.value = false
+  }
 }
 </script>
 
