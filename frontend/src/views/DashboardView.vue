@@ -27,8 +27,15 @@
 import TaskCard from '@/components/TaskCard.vue'
 import TaskOverlay from '@/components/overlays/TaskOverlay.vue'
 import sampleTasks from '@/data/mockTask.js'
-import columns from '@/data/columns.js'
 import { ref } from 'vue'
+
+const columns = [
+  { key: 'backlog', title: 'Backlog' },
+  { key: 'todo', title: 'To Do' },
+  { key: 'in-progress', title: 'In Progress' },
+  { key: 'review', title: 'Review' },
+  { key: 'done', title: 'Done' },
+]
 function tasksByStatus(status) {
   return sampleTasks.filter((t) => (t.status || '').toLowerCase() === status)
 }

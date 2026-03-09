@@ -64,5 +64,15 @@ login: async (req, res) => {
         console.error(err);
     	return  res.status(500).json({ error: "There was an error during login", message: err.message });
     }
+},
+getUsers: async (req, res) => {
+	try {
+		// Include name so frontend can display user-friendly assignee names
+		const { rows } = await pool.query('SELECT id, name, email, created_at FROM users');
+		return res.status(200).json({ users: rows });
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ error: "There was an error fetching users", message: err.message });
+	}
 }
 }

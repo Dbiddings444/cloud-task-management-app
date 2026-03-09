@@ -6,7 +6,7 @@ module.exports = {
         try {
             // Accept either JSON body or a stringified `task` field (form-data)
             let taskObject = null;
-            if (req.body && req.body.task) {
+            if (req.body.task) {
                 // task may be JSON string
                 if (typeof req.body.task === 'string') {
                     taskObject = JSON.parse(req.body.task);

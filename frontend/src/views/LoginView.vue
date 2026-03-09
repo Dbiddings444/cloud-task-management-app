@@ -82,6 +82,7 @@ async function onSubmit() {
       // If server returns a token, store it for authenticated requests
       if (body.token) {
         localStorage.setItem('auth_token', body.token)
+        console.log('Token stored in localStorage:', body.token)
       }
       console.log('Login successful')
       router.push({ name: 'dashboard' })
