@@ -1,6 +1,6 @@
 <template>
   <div v-if="isOpen">
-    <TaskOverlay @close="isOpen = false" :task="selectedTask" />
+    <TaskOverlay @close="isOpen = false" @save="updateTask" :task="selectedTask" />
   </div>
   <div class="px-6 py-4">
     <h1 class="text-black text-2xl font-semibold">Dashboard</h1>
@@ -26,8 +26,7 @@
 <script setup>
 import TaskCard from '@/components/TaskCard.vue'
 import TaskOverlay from '@/components/overlays/TaskOverlay.vue'
-import sampleTasks from '@/data/mockTask.js'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const columns = [
   { key: 'backlog', title: 'Backlog' },
@@ -36,13 +35,61 @@ const columns = [
   { key: 'review', title: 'Review' },
   { key: 'done', title: 'Done' },
 ]
-function tasksByStatus(status) {
-  return sampleTasks.filter((t) => (t.status || '').toLowerCase() === status)
-}
 const isOpen = ref(false)
 const selectedTask = ref(null)
+const tasks = ref([])
+
+function tasksByStatus(status) {
+  return tasks.value.filter((t) => (t.status || '').toLowerCase() === status)
+}
+
 function openTaskOverlay(task) {
   isOpen.value = true
   selectedTask.value = task
 }
+async function loadTasks() {
+  const jsonToken = localStorage.getItem('auth_token')
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jsonToken}`
+    },
+  }
+  return fetch('/api/auth/getAllTasks', options)
+    .then(res => res.json())
+    .then(data => {
+      console.log('Fetched tasks:', data);
+      tasks.value = data
+    })
+    .catch(error => {
+      console.error('Error fetching task:', error)
+    })
+}
+
+  async function updateTask(updatedTask) {
+  const token = localStorage.getItem('auth_token');
+
+  const options = {
+    method: 'PUT',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  body: JSON.stringify(updatedTask)
+  }
+
+  await fetch(`/api/auth/updateTask/${updatedTask.id}`, options)
+    .then(res => res.json())
+    .then(data => {
+      console.log('Updated task:', data);
+      loadTasks()
+    })
+    .catch(error => {
+      console.error('Error updating task:', error)
+    })
+}
+
+
+onMounted(loadTasks)
 </script>

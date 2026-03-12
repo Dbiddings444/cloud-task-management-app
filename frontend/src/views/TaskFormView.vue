@@ -67,12 +67,15 @@ submitting.value = true;
 
 const options = {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+  headers: { 
+  'Content-Type': 'application/json', 
+  'Authorization': `Bearer ${token}` 
+},
   body: JSON.stringify(form)
 }
 
 await fetch('/api/auth/createTask', options)
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
     if (data.errors) {
       Object.assign(errors, data.errors)

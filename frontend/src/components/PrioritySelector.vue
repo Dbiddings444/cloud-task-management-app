@@ -17,7 +17,7 @@ import { computed } from 'vue'
 
 const props = defineProps({
   modelValue: String,
-  label: { type: String, default: 'Priority' },
+  options: Array,
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -27,12 +27,4 @@ const model = computed({
   set: (val) => emit('update:modelValue', val),
 })
 
-const options = [
-  { value: 'low', label: 'Low', color: 'bg-green-100 text-green-800' },
-  { value: 'medium', label: 'Medium', color: 'bg-amber-100 text-amber-800' },
-  { value: 'high', label: 'High', color: 'bg-red-100 text-red-800' },
-  { value: 'critical', label: 'Critical', color: 'bg-purple-100 text-purple-800' },
-]
-
-const selectedOption = computed(() => options.find((o) => o.value === props.modelValue))
 </script>

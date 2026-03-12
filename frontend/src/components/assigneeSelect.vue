@@ -5,7 +5,7 @@
       class="rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
     >
       <option disabled value="">Select assignee</option>
-      <option v-for="person in assignees" :key="person.id" :value="person.id">
+      <option v-for="person in assignees" :key="person.id" :value="person.name">
         {{ person.name }}
       </option>
     </select>
@@ -32,12 +32,11 @@ async function loadAssignees() {
     await fetch('/api/auth/getUsers', options)
     .then(res => res.json())
     .then(body => {
-      console.log(body);
       if (body && Array.isArray(body.users)) {
         // Map backend users to the assignee shape
         assignees.value = body.users.map((u, idx) => ({
         id: u.id,
-        name: u.name || u.email,
+        name: u.name,
         avatar: `https://i.pravatar.cc/40?img=${(u.id % 70) + 1}`,
       }))
     }
